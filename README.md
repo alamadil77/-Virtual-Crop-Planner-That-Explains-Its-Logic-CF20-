@@ -1,2 +1,4 @@
 # -Virtual-Crop-Planner-That-Explains-Its-Logic-CF20-
 Virtual Crop Planner is an intelligent decision-support system that helps farmers and agricultural planners choose the most suitable crops to grow based on soil type, climate conditions, water availability, crop rotation practices, and market demand.
+
+Hey, this HTML page is super easy to use and shows off Smart Crop Advisor, which suggests crops based on soil and season.  It's got a header with links, a cool tagline, a form to enter soil type and season, and info on common crops.  The JavaScript makes it work – you pick soil and season, click "Get Crop Suggestion," and boom, you get a recommendation with an explanation. It looks great too, all soft green and works perfectly on phones.

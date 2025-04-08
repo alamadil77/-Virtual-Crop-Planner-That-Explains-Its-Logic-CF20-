@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Crop Advisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f0f9f0;
+      color: #1b4332;
+    }
+
+    header {
+      background: #2d6a4f;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    nav a {
+      margin-left: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(to right, #95d5b2, #74c69d);
+      transition: all 0.5s ease;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+    }
+
+    .form-section {
+      margin: 40px auto;
+      max-width: 700px;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #2d6a4f;
+      color: white;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #40916c;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #e6f4ea;
+      border-radius: 15px;
+    }
+
+    .info-section {
+      padding: 40px;
+      background: #f8f9fa;
+    }
+
+    .info-section h3 {
+      margin-bottom: 20px;
+    }
+
+    .info-section p {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2d6a4f;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌱 Smart Crop Advisor</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#form">Suggest</a>
+      <a href="#info">Crops Info</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Grow Smarter, Not Harder 🌾</h2>
+    <p>Our platform suggests the best crops based on your soil, season, and market trends – explained in simple words.</p>
+  </section>
+
+  <section class="form-section" id="form">
+    <label for="soil">Select Soil Type:</label>
+    <select id="soil">
+      <option value="">-- Choose Soil --</option>
+      <option value="Loamy">Loamy</option>
+      <option value="Clay">Clay</option>
+      <option value="Sandy">Sandy</option>
+      <option value="Black">Black</option>
+    </select>
+
+    <label for="season">Select Season:</label>
+    <select id="season">
+      <option value="">-- Choose Season --</option>
+      <option value="Summer">Summer</option>
+      <option value="Monsoon">Monsoon</option>
+      <option value="Winter">Winter</option>
+    </select>
+
+    <button onclick="getSuggestion()">Get Crop Suggestion</button>
+
+    <div class="result" id="result"></div>
+  </section>
+
+  <section class="info-section" id="info">
+    <h3>🌾 Common Crops and Their Requirements</h3>
+    <p><strong>Tomato:</strong> Needs warm weather, loamy soil, and grows well in summer.</p>
+    <p><strong>Rice:</strong> Requires clay soil and heavy rainfall during monsoon.</p>
+    <p><strong>Carrot:</strong> Prefers sandy soil, suitable for cooler winters.</p>
+    <p><strong>Cotton:</strong> Black soil with good moisture, ideal for monsoon.</p>
+    <p><strong>Maize:</strong> Grows in diverse conditions and adaptable to different soils.</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Smart Crop Advisor. Designed for future farming. 🌍
+  </footer>
+
+  <script>
+    function getSuggestion() {
+      const soil = document.getElementById("soil").value;
+      const season = document.getElementById("season").value;
+      const result = document.getElementById("result");
+
+      if (!soil || !season) {
+        result.innerHTML = "⚠ Please select both soil and season.";
+        return;
+      }
+
+      let crop = "", reason = "";
+
+      if (soil === "Loamy" && season === "Summer") {
+        crop = "Tomato";
+        reason = "Loamy soil is rich in nutrients and tomatoes thrive in summer heat.";
+      } else if (soil === "Clay" && season === "Monsoon") {
+        crop = "Rice";
+        reason = "Clay retains water, perfect for water-loving rice in the rainy season.";
+      } else if (soil === "Sandy" && season === "Winter") {
+        crop = "Carrot";
+        reason = "Carrots love the drainage of sandy soil and the cool of winter.";
+      } else if (soil === "Black" && season === "Monsoon") {
+        crop = "Cotton";
+        reason = "Black soil holds moisture well, which cotton needs in monsoon.";
+      } else {
+        crop = "Maize";
+        reason = "Maize is adaptable and fits your soil and season combination well.";
+      }
+
+      result.innerHTML = `<strong>Suggested Crop:</strong> ${crop}<br><br><strong>Reason:</strong> ${reason}`;
+    }
+  </script>
+</body>
+</html>
