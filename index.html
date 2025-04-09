@@ -11,54 +11,52 @@
   <script src="main.js"></script>
 </head>
 <body>
-  <header>
-    <h1>🌱 Smart Crop Advisor</h1>
-    <nav>
-      <a onclick="openHomeSlide()">Home</a>
-      <a href="#form">Suggest</a>
-      <a href="#info">Crops Info</a>
-      <a href="#">About</a>
-    </nav>
-  </header>
+  <div class="intro-screen" id="introScreen">Hello there!</div>
 
-  <!-- Home Slide Panel -->
-  <section class="home-info-slide" id="homeSlide">
-    <div class="home-info-content">
-      <h2>About Smart Crop Advisor</h2>
-      <p>Smart Crop Advisor is a free tool designed to help you pick the right crops to grow based on soil, season, and market insights.</p>
-      <p>🌱 <strong>Purpose:</strong> Empower farmers to grow crops that are profitable and sustainable.</p>
-      <p>📈 <strong>Why:</strong> Use data-driven decisions instead of guesswork for better harvests and incomes.</p>
-      <p>🛠 <strong>How to Use:</strong> Select your soil type and current season — and get instant recommendations with live price trends.</p>
-      <button onclick="closeHomeSlide()">Close</button>
-    </div>
-  </section>
+  <div id="mainSite">
+    <header>
+      <h1>🌱 Smart Crop Advisor</h1>
+      <nav>
+        <a onclick="navigateTo('home')">Home</a>
+        <a onclick="navigateTo('form')">Suggest</a>
+        <a onclick="navigateTo('info')">Crops Info</a>
+      </nav>
+    </header>
 
-  <section class="hero">
-    <h2>Grow Smarter, Not Harder 🌾</h2>
-    <p>Discover the best crops to grow in your soil and season — with live market insights and clear advice.</p>
-  </section>
+    <section class="home-section" id="home">
+      <h2>Welcome to Smart Crop Advisor</h2>
+      <p>
+        Agriculture is the backbone of our livelihood. Our platform helps farmers and agri-enthusiasts make better crop decisions based on soil type, season, and market trends. Dive into smarter, sustainable farming with data-driven guidance.
+      </p>
+    </section>
 
-  <section class="form-section" id="form">
-    <label for="soil">Select Soil Type:</label>
-    <select id="soil">
-      <option value="">-- Choose Soil --</option>
-      <option value="Loamy">Loamy</option>
-      <option value="Clay">Clay</option>
-      <option value="Sandy">Sandy</option>
-      <option value="Black">Black</option>
-    </select>
+    <section class="form-section" id="form">
+      <label for="soil">Select Soil Type:</label>
+      <select id="soil">
+        <option value="">-- Choose Soil --</option>
+        <option value="Loamy">Loamy</option>
+        <option value="Clay">Clay</option>
+        <option value="Sandy">Sandy</option>
+        <option value="Black">Black</option>
+      </select>
 
-    <label for="season">Select Season:</label>
-    <select id="season">
-      <option value="">-- Choose Season --</option>
-      <option value="Summer">Summer</option>
-      <option value="Monsoon">Monsoon</option>
-      <option value="Winter">Winter</option>
-    </select>
+      <label for="season">Select Season:</label>
+      <select id="season">
+        <option value="">-- Choose Season --</option>
+        <option value="Summer">Summer</option>
+        <option value="Monsoon">Monsoon</option>
+        <option value="Winter">Winter</option>
+      </select>
 
-    <button onclick="getRecommendation()">Suggest Crop</button>
+      <label for="rainfall">Enter Rainfall (mm):</label>
+      <input type="number" id="rainfall" placeholder="e.g., 150" />
 
-    <div class="result" id="output"></div>
+      <label for="temperature">Enter Temperature (°C):</label>
+      <input type="number" id="temperature" placeholder="e.g., 30" />
+
+      <button onclick="getRecommendation()">Suggest Crop</button>
+      <div class="result" id="output"></div>
+    </section>
 
     <div class="chart-container">
       <canvas id="trendChart" width="400" height="200"></canvas>
@@ -67,51 +65,28 @@
     <div class="price-table">
       <h3>📊 Market Rate Changes (Static Example)</h3>
       <table>
-        <tr>
-          <th>Crop</th>
-          <th>Jan Price (₹/kg)</th>
-          <th>Apr Price (₹/kg)</th>
-          <th>Change</th>
-        </tr>
-        <tr>
-          <td>Tomato</td>
-          <td>20</td>
-          <td>28</td>
-          <td>📈 +40%</td>
-        </tr>
-        <tr>
-          <td>Rice</td>
-          <td>32</td>
-          <td>30</td>
-          <td>📉 -6.2%</td>
-        </tr>
-        <tr>
-          <td>Carrot</td>
-          <td>25</td>
-          <td>35</td>
-          <td>📈 +40%</td>
-        </tr>
-        <tr>
-          <td>Cotton</td>
-          <td>45</td>
-          <td>52</td>
-          <td>📈 +15.5%</td>
-        </tr>
+        <tr><th>Crop</th><th>Jan</th><th>Apr</th><th>Change</th></tr>
+        <tr><td>Tomato</td><td>20</td><td>28</td><td>+40%</td></tr>
+        <tr><td>Rice</td><td>32</td><td>30</td><td>-6.2%</td></tr>
+        <tr><td>Carrot</td><td>25</td><td>35</td><td>+40%</td></tr>
+        <tr><td>Cotton</td><td>45</td><td>52</td><td>+15.5%</td></tr>
       </table>
     </div>
-  </section>
 
-  <section class="info-section" id="info">
-    <h3>🌾 Common Crops and Their Requirements</h3>
-    <p><strong>Tomato:</strong> Needs warm weather, loamy soil, and grows well in summer.</p>
-    <p><strong>Rice:</strong> Requires clay soil and heavy rainfall during monsoon.</p>
-    <p><strong>Carrot:</strong> Prefers sandy soil, suitable for cooler winters.</p>
-    <p><strong>Cotton:</strong> Black soil with good moisture, ideal for monsoon.</p>
-    <p><strong>Maize:</strong> Grows in diverse conditions and adaptable to different soils.</p>
-  </section>
+    <section class="info-section" id="info">
+      <h3>🌾 Common Crops and Their Requirements</h3>
+      <p><strong>Tomato:</strong> Warm weather, loamy soil, summer season.</p>
+      <p><strong>Rice:</strong> Clay soil, high rainfall, monsoon season.</p>
+      <p><strong>Carrot:</strong> Sandy soil, cool weather, winter season.</p>
+      <p><strong>Cotton:</strong> Black soil, moderate rainfall, monsoon season.</p>
+      <p><strong>Maize:</strong> Adaptable to most soil and seasonal conditions.</p>
+    </section>
 
-  <footer>
-    &copy; 2025 Smart Crop Advisor. Designed for future farming. 🌍
-  </footer>
+    <footer>
+      &copy; 2025 Smart Crop Advisor. Designed for future farming.
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
