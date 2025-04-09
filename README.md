@@ -9,3 +9,7 @@ Hey, this HTML page is super easy to use and shows off Smart Crop Advisor, which
 2nd Commit : 
 
 In this web page more features are added to make it more user interactive and user friendly. Price chart together with image of the crop is also added as new features. Core functionality is implemented using JavaScript; upon user selection of soil type and season, clicking "Get Crop Suggestion" generates a crop recommendation with supporting rationale. And an API is added to fetch the market price of the crop. The static HTML table shows example price changes for a few crops from Jan to Apr: Each crop has an image stored and is used to display a relevant image with the crop recommendation.
+
+New Commit : 
+
+In this HTML file , new features are added and for better prediction and more clarification in data few more data inputs are added. Designed to assist users (especially farmers) in choosing the most suitable crop based on inputs like soil type, season, temperature, and rainfall. It also integrates live weather detection, animated UI, and a Chart.js-based market price visualization. An intro screen is also added to make is more user interactive.A simple table showing price changes for a few crops, used to give users an example of market volatility.
