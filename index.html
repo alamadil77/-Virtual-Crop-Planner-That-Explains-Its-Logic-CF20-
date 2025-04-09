@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Crop Advisor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    * {
+   * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -15,7 +15,7 @@
     }
 
     body {
-      background: #f0f9f0;
+      background: #f8f9fa;
       color: #1b4332;
     }
 
@@ -40,6 +40,7 @@
       color: white;
       text-decoration: none;
       font-weight: 600;
+      cursor: pointer;
     }
 
     nav a:hover {
@@ -51,13 +52,30 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(to right, #95d5b2, #74c69d);
-      transition: all 0.5s ease;
+      padding: 100px 20px;
+      background: url('https://images.unsplash.com/photo-1603038881804-289d3b2ec0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      color: #fff;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 60, 40, 0.6);
+      z-index: 0;
+    }
+
+    .hero h2, .hero p {
+      position: relative;
+      z-index: 1;
     }
 
     .hero h2 {
-      font-size: 36px;
+      font-size: 40px;
       margin-bottom: 20px;
     }
 
@@ -67,12 +85,12 @@
     }
 
     .form-section {
-      margin: 40px auto;
-      max-width: 700px;
-      padding: 20px;
-      background: white;
+      background: #e6f4ea;
+      padding: 40px;
+      margin: 0 auto 40px;
+      max-width: 800px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     }
 
     label {
@@ -105,21 +123,57 @@
     .result {
       margin-top: 30px;
       padding: 20px;
-      background-color: #e6f4ea;
+      background-color: #fff;
       border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .crop-image {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+
+    .chart-container {
+      margin-top: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.04);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #d8f3dc;
     }
 
     .info-section {
-      padding: 40px;
-      background: #f8f9fa;
+      padding: 60px 40px;
+      background: #d8f3dc;
+      color: #081c15;
     }
 
     .info-section h3 {
       margin-bottom: 20px;
+      font-size: 24px;
     }
 
     .info-section p {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-size: 16px;
     }
 
     footer {
@@ -133,27 +187,88 @@
       .hero h2 {
         font-size: 28px;
       }
-
       .hero p {
         font-size: 16px;
       }
     }
+
+    /* Sliding home info panel */
+    .home-info-slide {
+      position: fixed;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      color: #1b4332;
+      z-index: 2000;
+      transition: left 0.4s ease-in-out;
+      overflow-y: auto;
+      padding: 40px;
+    }
+
+    .home-info-slide.active {
+      left: 0;
+    }
+
+    .home-info-content {
+      max-width: 800px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .home-info-content h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .home-info-content p {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .home-info-content button {
+      padding: 10px 20px;
+      background-color: #2d6a4f;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .home-info-content button:hover {
+      background-color: #40916c;
+    }
+
   </style>
 </head>
 <body>
   <header>
     <h1>🌱 Smart Crop Advisor</h1>
     <nav>
-      <a href="#">Home</a>
+      <a onclick="openHomeSlide()">Home</a>
       <a href="#form">Suggest</a>
       <a href="#info">Crops Info</a>
       <a href="#">About</a>
     </nav>
   </header>
 
+  <!-- Home Slide Panel -->
+  <section class="home-info-slide" id="homeSlide">
+    <div class="home-info-content">
+      <h2>About Smart Crop Advisor</h2>
+      <p>Smart Crop Advisor is a free tool designed to help you pick the right crops to grow based on soil, season, and market insights.</p>
+      <p>🌱 <strong>Purpose:</strong> Empower farmers to grow crops that are profitable and sustainable.</p>
+      <p>📈 <strong>Why:</strong> Use data-driven decisions instead of guesswork for better harvests and incomes.</p>
+      <p>🛠 <strong>How to Use:</strong> Select your soil type and current season — and get instant recommendations with live price trends.</p>
+      <button onclick="closeHomeSlide()">Close</button>
+    </div>
+  </section>
+
   <section class="hero">
     <h2>Grow Smarter, Not Harder 🌾</h2>
-    <p>Our platform suggests the best crops based on your soil, season, and market trends – explained in simple words.</p>
+    <p>Discover the best crops to grow in your soil and season — with live market insights and clear advice.</p>
   </section>
 
   <section class="form-section" id="form">
@@ -174,9 +289,49 @@
       <option value="Winter">Winter</option>
     </select>
 
-    <button onclick="getSuggestion()">Get Crop Suggestion</button>
+    <button onclick="getRecommendation()">Suggest Crop</button>
 
-    <div class="result" id="result"></div>
+    <div class="result" id="output"></div>
+
+    <div class="chart-container">
+      <canvas id="trendChart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="price-table">
+      <h3>📊 Market Rate Changes (Static Example)</h3>
+      <table>
+        <tr>
+          <th>Crop</th>
+          <th>Jan Price (₹/kg)</th>
+          <th>Apr Price (₹/kg)</th>
+          <th>Change</th>
+        </tr>
+        <tr>
+          <td>Tomato</td>
+          <td>20</td>
+          <td>28</td>
+          <td>📈 +40%</td>
+        </tr>
+        <tr>
+          <td>Rice</td>
+          <td>32</td>
+          <td>30</td>
+          <td>📉 -6.2%</td>
+        </tr>
+        <tr>
+          <td>Carrot</td>
+          <td>25</td>
+          <td>35</td>
+          <td>📈 +40%</td>
+        </tr>
+        <tr>
+          <td>Cotton</td>
+          <td>45</td>
+          <td>52</td>
+          <td>📈 +15.5%</td>
+        </tr>
+      </table>
+    </div>
   </section>
 
   <section class="info-section" id="info">
@@ -193,17 +348,26 @@
   </footer>
 
   <script>
-    function getSuggestion() {
+    const cropImages = {
+      Tomato: "https://images2.alphacoders.com/110/thumb-1920-1106600.jpg",
+      Rice: "https://www.learnreligions.com/thmb/5VvWl15le3qQhn33Pu2K0qoh26k=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-682901474-5c6450dcc9e77c0001566eab.jpg",
+      Carrot: "https://i5.walmartimages.com/seo/Tendersweet-Carrot-Seeds-5-Lb-Non-GMO-Heirloom-Vegetable-Garden-Seeds-Gardening-by-Mountain-Valley-Seeds_e66fb972-b06a-4e45-bde6-a20a07f466a4_1.1885534e934f61f2cca9f3e15535ce53.jpeg",
+      Cotton: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWYmW9pgI_y_NDCxGs6lB8LpSZbe8MEnmIiA410lPjOCHW8fPlsW1vld1Q-_ol5-X_RIia4G9jUP8-TJEC9rpNmbWQy4lQem4CsC37DDdXZ70ZUiyLEhVhTJoMg2F_RxW0qqMYjSdJxJs/s400/Cotton.jpg",
+      Maize: "https://bolbel.com/wp-content/uploads/2018/06/Maize.jpg"
+    };
+
+    function getRecommendation() {
       const soil = document.getElementById("soil").value;
       const season = document.getElementById("season").value;
-      const result = document.getElementById("result");
+      const output = document.getElementById("output");
 
       if (!soil || !season) {
-        result.innerHTML = "⚠ Please select both soil and season.";
+        output.innerHTML = "⚠ Please select both soil and season.";
         return;
       }
 
-      let crop = "", reason = "";
+      let crop = "";
+      let reason = "";
 
       if (soil === "Loamy" && season === "Summer") {
         crop = "Tomato";
@@ -222,7 +386,88 @@
         reason = "Maize is adaptable and fits your soil and season combination well.";
       }
 
-      result.innerHTML = `<strong>Suggested Crop:</strong> ${crop}<br><br><strong>Reason:</strong> ${reason}`;
+      output.innerHTML = `
+        <strong>Suggested Crop:</strong> ${crop}<br><br>
+        <strong>Reason:</strong> ${reason}<br>
+        <img class="crop-image" src="${cropImages[crop]}" alt="${crop}">
+      `;
+
+      updateChart(crop);
+      fetchMarketPrice(crop);
+    }
+
+    function updateChart(crop) {
+      const cropTrends = {
+        Tomato: [20, 22, 25, 28],
+        Rice: [32, 31, 30.5, 30],
+        Carrot: [25, 30, 33, 35],
+        Cotton: [45, 48, 50, 52],
+        Maize: [18, 19, 19.5, 20]
+      };
+
+      const ctx = document.getElementById('trendChart').getContext('2d');
+      if (window.myChart) window.myChart.destroy();
+
+      window.myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+          datasets: [{
+            label: `${crop} Market Price (₹/kg)`,
+            data: cropTrends[crop],
+            borderColor: '#2d6a4f',
+            backgroundColor: '#74c69d66',
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+
+    async function fetchMarketPrice(cropName) {
+      const apiKey = "579b464db66ec23bdd0000017f070ea9c3d5432945f2974fe8d3133f";
+      const resourceId = "9ef84268-d588-465a-a308-a864a43d0070";
+
+      const url = `https://api.data.gov.in/resource/${resourceId}?api-key=${apiKey}&format=json&limit=5&filters[commodity]=${cropName}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.records && data.records.length > 0) {
+          const prices = data.records.map(item => (
+            `${item.arrival_date} — ${item.market}: ₹${item.modal_price}/quintal`
+          )).join("<br>");
+
+          document.getElementById("output").innerHTML += `
+            <br><br><strong>📈 Latest Real Market Prices:</strong><br>${prices}
+          `;
+        } else {
+          document.getElementById("output").innerHTML += `
+            <br><br><strong>No real-time price data available for ${cropName}.</strong>
+          `;
+        }
+      } catch (error) {
+        document.getElementById("output").innerHTML += `
+          <br><br><strong>⚠ Could not fetch real prices. Check API key or network.</strong>
+        `;
+      }
+    }
+
+    function openHomeSlide() {
+      document.getElementById("homeSlide").classList.add("active");
+    }
+
+    function closeHomeSlide() {
+      document.getElementById("homeSlide").classList.remove("active");
     }
   </script>
 </body>
