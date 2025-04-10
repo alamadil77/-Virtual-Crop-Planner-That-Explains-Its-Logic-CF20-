@@ -12,4 +12,5 @@ In this web page more features are added to make it more user interactive and us
 In this HTML file , new features are added and for better prediction and more clarification in data few more data inputs are added. Designed to assist users (especially farmers) in choosing the most suitable crop based on inputs like soil type, season, temperature, and rainfall. It also integrates live weather detection, animated UI, and a Chart.js-based market price visualization. An intro screen is also added to make is more user interactive.A simple table showing price changes for a few crops, used to give users an example of market volatility.
 
 
+
 Virtual crop planner.  A data driven crop planning platform that suggests what to grow based on current market trends,health of soil and season and its logic . In this CSS and HTML is used for frontend and python is used at backend. The ML is based on random forest model. The detail analysis for each recommendation of crop is given. And the platform is user friendly and interactive. For every recommendation a detailed and pictorial chart are prepared for better understanding.
