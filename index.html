@@ -1,92 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smart Crop Advisor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>Smart Crop Advisory</title>
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
-  <script src="main.js"></script>
 </head>
 <body>
-  <div class="intro-screen" id="introScreen">Hello there!</div>
 
-  <div id="mainSite">
-    <header>
-      <h1>🌱 Smart Crop Advisor</h1>
-      <nav>
-        <a onclick="navigateTo('home')">Home</a>
-        <a onclick="navigateTo('form')">Suggest</a>
-        <a onclick="navigateTo('info')">Crops Info</a>
-      </nav>
-    </header>
+  <header>
+    <nav class="navbar">
+      <div class="logo">🌱 Crop Advisor</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#info">Information</a></li>
+        <li><a href="#cta">Advisory</a></li> <!-- New Link Added -->
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <section class="home-section" id="home">
-      <h2>Welcome to Smart Crop Advisor</h2>
-      <p>
-        Agriculture is the backbone of our livelihood. Our platform helps farmers and agri-enthusiasts make better crop decisions based on soil type, season, and market trends. Dive into smarter, sustainable farming with data-driven guidance.
-      </p>
-    </section>
+  <section class="hero">
+    <h1>Welcome to the Smart Crop Advisory Platform</h1>
+    <p>Empowering farmers with data-driven insights to make better planting decisions. Discover the right crop for your land, season, and market conditions.</p>
+  </section>
 
-    <section class="form-section" id="form">
-      <label for="soil">Select Soil Type:</label>
-      <select id="soil">
-        <option value="">-- Choose Soil --</option>
-        <option value="Loamy">Loamy</option>
-        <option value="Clay">Clay</option>
-        <option value="Sandy">Sandy</option>
-        <option value="Black">Black</option>
-      </select>
+  <section class="info-section" id="info">
+    <h2>Why Pre-Plantation Knowledge is Crucial</h2>
+    <p class="intro">Planting the right crop at the right time can be the difference between profit and loss. Pre-plantation awareness helps reduce risk, boost yield, and improve sustainability.</p>
 
-      <label for="season">Select Season:</label>
-      <select id="season">
-        <option value="">-- Choose Season --</option>
-        <option value="Summer">Summer</option>
-        <option value="Monsoon">Monsoon</option>
-        <option value="Winter">Winter</option>
-      </select>
-
-      <label for="rainfall">Enter Rainfall (mm):</label>
-      <input type="number" id="rainfall" placeholder="e.g., 150" />
-
-      <label for="temperature">Enter Temperature (°C):</label>
-      <input type="number" id="temperature" placeholder="e.g., 30" />
-
-      <button onclick="getRecommendation()">Suggest Crop</button>
-      <div class="result" id="output"></div>
-    </section>
-
-    <div class="chart-container">
-      <canvas id="trendChart" width="400" height="200"></canvas>
+    <div class="factors-container">
+      <div class="factor-card">
+        <h3>🌡️ Climate Conditions</h3>
+        <p>Understanding local temperature, humidity, and rainfall is critical to avoid weather stress on crops and plan for irrigation or protection when needed.</p>
+      </div>
+      <div class="factor-card">
+        <h3>🌱 Soil Health</h3>
+        <p>Each crop has specific soil nutrient needs. Knowing your soil's pH, nitrogen, phosphorus, and potassium levels helps avoid underperformance and nutrient waste.</p>
+      </div>
+      <div class="factor-card">
+        <h3>📈 Market Trends</h3>
+        <p>Monitoring crop demand, supply, and market prices lets you select crops with high profitability and avoid over-supplied markets.</p>
+      </div>
+      <div class="factor-card">
+        <h3>📍 Location & Season</h3>
+        <p>Some crops grow only during specific seasons or in particular regions. Choosing the wrong crop for your zone can result in poor yields or complete failure.</p>
+      </div>
+      <div class="factor-card">
+        <h3>🚜 Land Preparation</h3>
+        <p>Preparation techniques such as tilling, leveling, and irrigation layout influence early crop growth and overall yield potential.</p>
+      </div>
+      <div class="factor-card">
+        <h3>💧 Water Availability</h3>
+        <p>Different crops have different water needs. Analyzing water sources ensures sustainable farming and avoids losses during dry periods.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="price-table">
-      <h3>📊 Market Rate Changes (Static Example)</h3>
-      <table>
-        <tr><th>Crop</th><th>Jan</th><th>Apr</th><th>Change</th></tr>
-        <tr><td>Tomato</td><td>20</td><td>28</td><td>+40%</td></tr>
-        <tr><td>Rice</td><td>32</td><td>30</td><td>-6.2%</td></tr>
-        <tr><td>Carrot</td><td>25</td><td>35</td><td>+40%</td></tr>
-        <tr><td>Cotton</td><td>45</td><td>52</td><td>+15.5%</td></tr>
-      </table>
-    </div>
+  <section class="cta-section" id="cta"> <!-- ID added here -->
+    <h2>Get Advisory Now</h2>
+    <p>Our platform analyzes your soil, climate, and local trends to give you the best crop recommendations. Start making smart, profitable decisions today!</p>
+    <button onclick="window.location.href='http://localhost:8501/'">Launch Advisor</button>
+  </section>
 
-    <section class="info-section" id="info">
-      <h3>🌾 Common Crops and Their Requirements</h3>
-      <p><strong>Tomato:</strong> Warm weather, loamy soil, summer season.</p>
-      <p><strong>Rice:</strong> Clay soil, high rainfall, monsoon season.</p>
-      <p><strong>Carrot:</strong> Sandy soil, cool weather, winter season.</p>
-      <p><strong>Cotton:</strong> Black soil, moderate rainfall, monsoon season.</p>
-      <p><strong>Maize:</strong> Adaptable to most soil and seasonal conditions.</p>
-    </section>
+  <footer id="contact">
+    <p>Contact Us: teamGgang@gmail.ai.com | +91 8825350956</p>
+    <p>&copy; 2025 Smart Crop Advisory. All rights reserved.</p>
+  </footer>
 
-    <footer>
-      &copy; 2025 Smart Crop Advisor. Designed for future farming.
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
