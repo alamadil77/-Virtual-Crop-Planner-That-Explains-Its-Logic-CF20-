@@ -652,4 +652,4 @@ else:
 
 # Footer
 st.markdown("---")
-st.markdown("Smart Crop Planner © 2023 | Powered by agricultural data and machine learning")
+st.markdown("Smart Crop Planner © 2025 | agricultural data and machine learning")
